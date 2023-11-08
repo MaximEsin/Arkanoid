@@ -13,12 +13,24 @@
     <div class="Tab Tab__closed" id="loose__Tab">
       <p class="Tab__text">Game over. You loose</p>
       <p id="looser__score" class="Tab__text"></p>
+      <div class="leaderboard">
+        <p class="leaderboard__text">Leaderboard</p>
+        <ol class="leaderboard__list"></ol>
+      </div>
       <button onclick="restart()" class="Tab__btn">Start again</button>
     </div>
     <div class="Tab Tab__closed" id="win__Tab">
       <p class="Tab__text">Game over. You win</p>
       <p id="winner__score" class="Tab__text"></p>
+      <div class="leaderboard">
+        <p class="leaderboard__text">Leaderboard</p>
+        <ol class="leaderboard__list"></ol>
+      </div>
       <button onclick="restart()" class="Tab__btn">Start again</button>
+    </div>
+    <div class="player__Name__Container">
+      <input type="text" id="player__Name" placeholder="Enter your name" />
+      <button class="player__Name__Btn">Confirm</button>
     </div>
     <canvas id="canvas"></canvas>
     <p id="score">Score: 0</p>

@@ -55,3 +55,44 @@ body {
   color: white;
   font-size: 30px;
 }
+
+.leaderboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard__text {
+  color: white;
+  font-size: 30px;
+}
+
+.leaderboard__list {
+  color: white;
+}
+
+#player__Name {
+  margin: 5px 0 5px;
+  padding: 5px 5px;
+  border: none;
+  background-color: black;
+  color: white;
+}
+
+#player__Name::placeholder {
+  color: white;
+}
+
+.player__Name__Container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.player__Name__Btn {
+  border: none;
+  background-color: purple;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 25px;
+}
