@@ -17,7 +17,7 @@ let moveLeft = false;
 let ballRadius = 5;
 let x = canvas.width / 2;
 let y = canvas.height - 20;
-let dx = 2;
+let dx = -2;
 let dy = -2;
 
 // Bricks
@@ -101,6 +101,62 @@ function drawBricks() {
   }
 }
 
-drawPlatform();
-drawBall();
-drawBricks();
+function brickTouched() {
+  for (let i = 0; i < brickColumns; i++) {
+    for (let row = 0; row < brickRows; row++) {
+      const b = bricks[i][row];
+      if (
+        b.state === 1 &&
+        x > b.x &&
+        x < b.x + brickWidth &&
+        y > b.y &&
+        y < b.y + brickHeight
+      ) {
+        dy = -dy;
+        b.state = 0;
+      }
+    }
+  }
+}
+
+// Game
+function game() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  drawBricks();
+  drawBall();
+  drawPlatform();
+  brickTouched();
+
+  // Bounce off walls
+  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+    dx = -dx;
+  }
+
+  // Bounce off top
+  if (y + dy < ballRadius) {
+    dy = -dy;
+  }
+
+  // Platform interaction
+  if (
+    y + dy > canvas.height - ballRadius - platformHeight &&
+    x > platformX &&
+    x < platformX + platformWidth
+  ) {
+    dy = -dy;
+  }
+
+  // Move paddle
+  if (moveRight && platformX < canvas.width - platformWidth) {
+    platformX += 5;
+  } else if (moveLeft && platformX > 0) {
+    platformX -= 5;
+  }
+
+  x += dx;
+  y += dy;
+
+  requestAnimationFrame(game);
+}
+
+game();
