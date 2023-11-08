@@ -14,11 +14,21 @@ let moveRight = false;
 let moveLeft = false;
 
 // Ball
-let ballRadius = 10;
+let ballRadius = 5;
 let x = canvas.width / 2;
 let y = canvas.height - 20;
 let dx = 2;
 let dy = -2;
+
+// Bricks
+const brickRows = 5;
+const brickColumns = 3;
+const brickWidth = 50;
+const brickHeight = 10;
+const brickPadding = 5;
+const brickOffsetTop = 10;
+const brickOffsetLeft = 67;
+const bricks = [];
 
 // Systems -----------------------------------------------------
 
@@ -42,8 +52,17 @@ function keyUpHandler(event) {
   }
 }
 
+// Bricks logic
+for (let i = 0; i < brickColumns; i++) {
+  bricks[i] = [];
+
+  for (let row = 0; row < brickRows; row++) {
+    bricks[i][row] = { x: 0, y: 0, state: 1 };
+  }
+}
+
 // Draw functions
-function drawPaddle() {
+function drawPlatform() {
   context.beginPath();
   context.rect(
     platformX,
@@ -64,5 +83,24 @@ function drawBall() {
   context.closePath();
 }
 
-drawPaddle();
+function drawBricks() {
+  for (let i = 0; i < brickColumns; i++) {
+    for (let row = 0; row < brickRows; row++) {
+      if (bricks[i][row].state === 1) {
+        const brickX = i * (brickWidth + brickPadding) + brickOffsetLeft;
+        const brickY = row * (brickHeight + brickPadding) + brickOffsetTop;
+        bricks[i][row].x = brickX;
+        bricks[i][row].y = brickY;
+        context.beginPath();
+        context.rect(brickX, brickY, brickWidth, brickHeight);
+        context.fillStyle = "blue";
+        context.fill();
+        context.closePath();
+      }
+    }
+  }
+}
+
+drawPlatform();
 drawBall();
+drawBricks();
