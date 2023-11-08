@@ -4,8 +4,13 @@ const context = canvas.getContext("2d");
 const looseTab = document.getElementById("loose__Tab");
 const winTab = document.getElementById("win__Tab");
 const pointCounter = document.getElementById("score");
+const startButton = document.getElementsByClassName("player__Name__Btn");
+const leaderboardList = document.querySelector(".leaderboard__list");
+const playerNameInput = document.getElementById("player__Name");
 let score = 0;
 let won = false;
+let playerName = "";
+let leaderboard = [];
 
 // Entities -----------------------------------------------------
 
@@ -36,6 +41,12 @@ const brickOffsetLeft = 10;
 const bricks = [];
 
 // Systems -----------------------------------------------------
+
+function startGame() {
+  if (playerNameInput.value !== "") {
+    game();
+  }
+}
 
 // Event listeners
 document.addEventListener("keydown", keyDownHandler);
@@ -131,6 +142,12 @@ function brickTouched() {
   }
 }
 
+function savePlayerName() {
+  playerName = document.getElementById("player__Name").value;
+  document.getElementById("player__Name").style.display = "none";
+  startButton.disabled = "true";
+}
+
 function increaseScore(color) {
   switch (color) {
     case "blue": {
@@ -150,6 +167,17 @@ function increaseScore(color) {
   document.getElementById(
     "looser__score"
   ).innerText = `You earned: ${score} points`;
+
+  leaderboard.push({ name: playerName, score });
+  leaderboard.sort((a, b) => b.score - a.score);
+  leaderboardList.innerHTML = "";
+  for (let i = 0; i < leaderboard.length; i++) {
+    const player = leaderboard[i];
+    const listItem = document.createElement("li");
+    listItem.innerText = `${player.name}: ${player.score}`;
+    leaderboardList.appendChild(listItem);
+  }
+
   checkWin();
 }
 
@@ -193,11 +221,12 @@ function restart() {
   pointCounter.innerText = `Score: ${score}`;
   won = false;
 
-  game();
+  startGame();
 }
 
 // Game
 function game() {
+  savePlayerName();
   context.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
   drawBall();
@@ -249,5 +278,3 @@ function game() {
 
   requestAnimationFrame(game);
 }
-
-game();
