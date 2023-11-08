@@ -6,12 +6,19 @@ const context = canvas.getContext("2d");
 
 // Platform
 const platformHeight = 10;
-const platformWidth = 75;
+const platformWidth = 50;
 let platformX = (canvas.width - platformWidth) / 2;
 
 // Platform Controls
 let moveRight = false;
 let moveLeft = false;
+
+// Ball
+let ballRadius = 10;
+let x = canvas.width / 2;
+let y = canvas.height - 20;
+let dx = 2;
+let dy = -2;
 
 // Systems -----------------------------------------------------
 
@@ -44,9 +51,18 @@ function drawPaddle() {
     platformWidth,
     platformHeight
   );
-  context.fillStyle = "#0095DD";
+  context.fillStyle = "purple";
+  context.fill();
+  context.closePath();
+}
+
+function drawBall() {
+  context.beginPath();
+  context.arc(x, y, ballRadius, 0, Math.PI * 2);
+  context.fillStyle = "purple";
   context.fill();
   context.closePath();
 }
 
 drawPaddle();
+drawBall();
