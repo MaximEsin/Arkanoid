@@ -2,6 +2,7 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const looseTab = document.getElementsByClassName("looseTab");
+let score = 0;
 
 // Entities -----------------------------------------------------
 
@@ -121,9 +122,31 @@ function brickTouched() {
       ) {
         dy = -dy;
         b.state = 0;
+        increaseScore(b.color);
       }
     }
   }
+}
+
+function increaseScore(color) {
+  switch (color) {
+    case "blue": {
+      score += 1;
+      break;
+    }
+    case "red": {
+      score += 2;
+      break;
+    }
+    case "green": {
+      score += 3;
+      break;
+    }
+  }
+  document.getElementById("score").innerText = `Score: ${score}`;
+  document.getElementById(
+    "looser__score"
+  ).innerText = `You earned: ${score} points`;
 }
 
 // Restart

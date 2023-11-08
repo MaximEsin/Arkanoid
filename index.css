@@ -36,6 +36,7 @@ body {
 .looseTab__text {
   color: white;
   font-size: 30px;
+  margin: 10px 0 10px;
 }
 
 .looseTab__btn {
@@ -45,4 +46,11 @@ body {
   width: 100px;
   height: 40px;
   cursor: pointer;
+  margin-top: 10px;
+}
+
+#score {
+  margin-left: 10px;
+  color: white;
+  font-size: 30px;
 }
