@@ -1,8 +1,11 @@
 // Initial data
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-const looseTab = document.getElementsByClassName("looseTab");
+const looseTab = document.getElementById("loose__Tab");
+const winTab = document.getElementById("win__Tab");
+const pointCounter = document.getElementById("score");
 let score = 0;
+let won = false;
 
 // Entities -----------------------------------------------------
 
@@ -19,8 +22,8 @@ let moveLeft = false;
 let ballRadius = 5;
 let x = canvas.width / 2;
 let y = canvas.height - 20;
-let dx = -2;
-let dy = -2;
+let dx = -1;
+let dy = -1;
 
 // Bricks
 const brickRows = 5;
@@ -143,10 +146,31 @@ function increaseScore(color) {
       break;
     }
   }
-  document.getElementById("score").innerText = `Score: ${score}`;
+  pointCounter.innerText = `Score: ${score}`;
   document.getElementById(
     "looser__score"
   ).innerText = `You earned: ${score} points`;
+  checkWin();
+}
+
+// Win condition
+function checkWin() {
+  let totalBricks = brickRows * brickColumns;
+  let destroyedBricks = 0;
+  for (let i = 0; i < brickColumns; i++) {
+    for (let row = 0; row < brickRows; row++) {
+      if (bricks[i][row].state !== 1) {
+        destroyedBricks++;
+      }
+    }
+  }
+  if (destroyedBricks === totalBricks) {
+    winTab.classList.remove("Tab__closed");
+    won = true;
+    document.getElementById(
+      "winner__score"
+    ).innerText = `You earned: ${score} points`;
+  }
 }
 
 // Restart
@@ -163,7 +187,11 @@ function restart() {
       bricks[i][row].state = 1;
     }
   }
-  looseTab[0].classList.add("looseTab__closed");
+  looseTab.classList.add("Tab__closed");
+  winTab.classList.add("Tab__closed");
+  score = 0;
+  pointCounter.innerText = `Score: ${score}`;
+  won = false;
 
   game();
 }
@@ -204,7 +232,14 @@ function game() {
 
   // Loose condition
   if (y + dy > canvas.height - ballRadius) {
-    looseTab[0].classList.remove("looseTab__closed");
+    looseTab.classList.remove("Tab__closed");
+    return;
+  } else {
+    x += dx;
+  }
+
+  // Win condition
+  if (won) {
     return;
   } else {
     x += dx;

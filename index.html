@@ -10,10 +10,15 @@
     <title>Arkanoid</title>
   </head>
   <body>
-    <div class="looseTab looseTab__closed">
-      <p class="looseTab__text">Game over. You loose</p>
-      <p id="looser__score" class="looseTab__text"></p>
-      <button onclick="restart()" class="looseTab__btn">Start again</button>
+    <div class="Tab Tab__closed" id="loose__Tab">
+      <p class="Tab__text">Game over. You loose</p>
+      <p id="looser__score" class="Tab__text"></p>
+      <button onclick="restart()" class="Tab__btn">Start again</button>
+    </div>
+    <div class="Tab Tab__closed" id="win__Tab">
+      <p class="Tab__text">Game over. You win</p>
+      <p id="winner__score" class="Tab__text"></p>
+      <button onclick="restart()" class="Tab__btn">Start again</button>
     </div>
     <canvas id="canvas"></canvas>
     <p id="score">Score: 0</p>

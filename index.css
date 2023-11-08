@@ -6,6 +6,7 @@ body {
   height: 100vh;
   background-color: rgb(81, 81, 233);
   position: relative;
+  flex-direction: column;
 }
 
 #canvas {
@@ -17,7 +18,7 @@ body {
   border-radius: 10px;
 }
 
-.looseTab {
+.Tab {
   position: absolute;
   z-index: 5;
   display: flex;
@@ -29,17 +30,17 @@ body {
   justify-content: center;
 }
 
-.looseTab__closed {
+.Tab__closed {
   display: none;
 }
 
-.looseTab__text {
+.Tab__text {
   color: white;
   font-size: 30px;
   margin: 10px 0 10px;
 }
 
-.looseTab__btn {
+.Tab__btn {
   border: none;
   background-color: purple;
   color: white;
@@ -50,7 +51,7 @@ body {
 }
 
 #score {
-  margin-left: 10px;
+  margin: 5px 0 0;
   color: white;
   font-size: 30px;
 }
