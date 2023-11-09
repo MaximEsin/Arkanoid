@@ -43,7 +43,11 @@ const bricks = [];
 // Systems -----------------------------------------------------
 
 function startGame() {
-  if (playerNameInput.value !== "") {
+  let playerNameValue = playerNameInput.value.trim();
+  if (playerNameValue !== "") {
+    playerNameInput.value = "";
+    playerName = playerNameValue;
+    console.log(playerName);
     game();
   }
 }
@@ -53,17 +57,17 @@ document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
 
 function keyDownHandler(event) {
-  if (event.key === "Right" || event.key === "ArrowRight") {
+  if (event.key === "right" || event.key === "ArrowRight") {
     moveRight = true;
-  } else if (event.key === "Left" || event.key === "ArrowLeft") {
+  } else if (event.key === "left" || event.key === "ArrowLeft") {
     moveLeft = true;
   }
 }
 
 function keyUpHandler(event) {
-  if (event.key === "Right" || event.key === "ArrowRight") {
+  if (event.key === "right" || event.key === "ArrowRight") {
     moveRight = false;
-  } else if (event.key === "Left" || event.key === "ArrowLeft") {
+  } else if (event.key === "left" || event.key === "ArrowLeft") {
     moveLeft = false;
   }
 }
@@ -142,12 +146,6 @@ function brickTouched() {
   }
 }
 
-function savePlayerName() {
-  playerName = document.getElementById("player__Name").value;
-  document.getElementById("player__Name").style.display = "none";
-  startButton.disabled = "true";
-}
-
 function increaseScore(color) {
   switch (color) {
     case "blue": {
@@ -203,6 +201,7 @@ function checkWin() {
 
 // Restart
 function restart() {
+  playerNameInput.value = "";
   x = canvas.width / 2;
   y = canvas.height - 20;
   platformX = (canvas.width - platformWidth) / 2;
@@ -226,7 +225,6 @@ function restart() {
 
 // Game
 function game() {
-  savePlayerName();
   context.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
   drawBall();
