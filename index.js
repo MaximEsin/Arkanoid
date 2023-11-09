@@ -130,16 +130,21 @@ function brickTouched() {
   for (let i = 0; i < brickColumns; i++) {
     for (let row = 0; row < brickRows; row++) {
       const b = bricks[i][row];
-      if (
-        b.state === 1 &&
-        x > b.x &&
-        x < b.x + brickWidth &&
-        y > b.y &&
-        y < b.y + brickHeight
-      ) {
-        dy = -dy;
-        b.state = 0;
-        increaseScore(b.color);
+      if (b.state === 1) {
+        const brickX = b.x;
+        const brickY = b.y;
+
+        if (
+          x + dx > brickX && // Ball is to the right of the left edge of the brick
+          x + dx < brickX + brickWidth && // Ball is to the left of the right edge of the brick
+          y + dy > brickY && // Ball is below the top edge of the brick
+          y + dy < brickY + brickHeight // Ball is above the bottom edge of the brick
+        ) {
+          // Collided with a brick, change direction and mark the brick as hit
+          dy = -dy;
+          b.state = 0;
+          increaseScore(b.color);
+        }
       }
     }
   }
@@ -261,8 +266,8 @@ function game() {
   // Platform interaction
   if (
     y + dy > canvas.height - ballRadius - platformHeight &&
-    x > platformX &&
-    x < platformX + platformWidth
+    x + dx > platformX &&
+    x + dx < platformX + platformWidth
   ) {
     dy = -dy;
   }
