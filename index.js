@@ -5,7 +5,7 @@ const looseTab = document.getElementById("loose__Tab");
 const winTab = document.getElementById("win__Tab");
 const pointCounter = document.getElementById("score");
 const startButton = document.getElementsByClassName("player__Name__Btn");
-const leaderboardList = document.querySelector(".leaderboard__list");
+const leaderboardList = document.querySelectorAll(".leaderboard__list");
 const playerNameInput = document.getElementById("player__Name");
 let score = 0;
 let won = false;
@@ -181,12 +181,16 @@ function increaseScore(color) {
   }
 
   leaderboard.sort((a, b) => b.score - a.score);
-  leaderboardList.innerHTML = "";
+  leaderboardList[0].innerHTML = "";
+  leaderboardList[1].innerHTML = "";
   for (let i = 0; i < Math.min(5, leaderboard.length); i++) {
     const player = leaderboard[i];
-    const listItem = document.createElement("li");
-    listItem.innerText = `${player.name}: ${player.score}`;
-    leaderboardList.appendChild(listItem);
+    const listItem1 = document.createElement("li");
+    const listItem2 = document.createElement("li");
+    listItem1.innerText = `${player.name}: ${player.score}`;
+    listItem2.innerText = `${player.name}: ${player.score}`;
+    leaderboardList[0].appendChild(listItem1);
+    leaderboardList[1].appendChild(listItem2);
   }
 
   checkWin();
