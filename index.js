@@ -47,7 +47,6 @@ function startGame() {
   if (playerNameValue !== "") {
     playerNameInput.value = "";
     playerName = playerNameValue;
-    console.log(playerName);
     game();
   }
 }
@@ -166,10 +165,24 @@ function increaseScore(color) {
     "looser__score"
   ).innerText = `You earned: ${score} points`;
 
-  leaderboard.push({ name: playerName, score });
+  // Check if the player's name is already in the leaderboard
+  const playerIndex = leaderboard.findIndex(
+    (player) => player.name === playerName
+  );
+
+  if (playerIndex !== -1) {
+    // Update the score if the player is already in the leaderboard
+    if (leaderboard[playerIndex].score < score) {
+      leaderboard[playerIndex].score = score;
+    }
+  } else {
+    // Add a new entry for the player if they are not in the leaderboard
+    leaderboard.push({ name: playerName, score });
+  }
+
   leaderboard.sort((a, b) => b.score - a.score);
   leaderboardList.innerHTML = "";
-  for (let i = 0; i < leaderboard.length; i++) {
+  for (let i = 0; i < Math.min(5, leaderboard.length); i++) {
     const player = leaderboard[i];
     const listItem = document.createElement("li");
     listItem.innerText = `${player.name}: ${player.score}`;
