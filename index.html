@@ -2,38 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Arkanoid game" />
     <meta name="keywords" content="HTML5, CSS, Arkanoid, JavaScript" />
     <meta name="author" content="Maxim Esin" />
-    <link rel="stylesheet" href="./index.css" />
     <title>Arkanoid</title>
   </head>
   <body>
-    <div class="Tab Tab__closed" id="loose__Tab">
-      <p class="Tab__text">Game over. You loose</p>
-      <p id="looser__score" class="Tab__text"></p>
-      <div class="leaderboard">
-        <p class="leaderboard__text">Leaderboard</p>
-        <ol class="leaderboard__list"></ol>
-      </div>
-      <button onclick="restart()" class="Tab__btn">Start again</button>
-    </div>
-    <div class="Tab Tab__closed" id="win__Tab">
-      <p class="Tab__text">Game over. You win</p>
-      <p id="winner__score" class="Tab__text"></p>
-      <div class="leaderboard">
-        <p class="leaderboard__text">Leaderboard</p>
-        <ol class="leaderboard__list"></ol>
-      </div>
-      <button onclick="restart()" class="Tab__btn">Start again</button>
-    </div>
-    <div class="player__Name__Container">
-      <input type="text" id="player__Name" placeholder="Enter your name" />
-      <button class="player__Name__Btn" onclick="startGame()">Confirm</button>
-    </div>
-    <canvas id="canvas"></canvas>
-    <p id="score">Score: 0</p>
-    <script src="./index.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
