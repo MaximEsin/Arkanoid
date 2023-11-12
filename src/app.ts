@@ -2,9 +2,10 @@ import * as PIXI from "pixi.js";
 import { Platform } from "./items/platform";
 import { Ball } from "./items/ball";
 import { Brick } from "./items/brick";
+import { GameInterface } from "./interfaces/game";
 
 // Main class that manages the game
-export class Game {
+export class Game implements GameInterface {
   private app: PIXI.Application;
   private platform: Platform;
   private ball: Ball;
@@ -22,7 +23,7 @@ export class Game {
 
     // Init platform, bricks and ball
     this.platform = new Platform(this.app);
-    this.ball = new Ball(this.app);
+    this.ball = new Ball(this.app, this);
     this.createBricks();
 
     // Add update function to PIXI ticker
@@ -69,6 +70,20 @@ export class Game {
     if (this.ball.checkPlatformTouch(this.platform)) {
       this.ball.bounce();
     }
+  }
+
+  // Reset the entire game
+  public reset(): void {
+    this.platform.reset();
+    this.ball.reset();
+    this.resetBricks();
+  }
+
+  // Reset bricks to initial position
+  private resetBricks(): void {
+    this.bricks.forEach((brick) => brick.destroy());
+    this.bricks = [];
+    this.createBricks();
   }
 }
 

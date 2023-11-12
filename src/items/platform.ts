@@ -43,6 +43,12 @@ export class Platform {
     }
   }
 
+  // Reset platform to initial position
+  public reset(): void {
+    this.graphics.x = this.app.screen.width / 2 - this.graphics.width / 2;
+    this.graphics.y = this.app.screen.height - 40;
+  }
+
   // Get the bounds of the platform to check touch
   public getBounds(): PIXI.Rectangle {
     return this.graphics.getBounds();

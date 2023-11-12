@@ -1,14 +1,17 @@
 import * as PIXI from "pixi.js";
 import { Platform } from "./platform";
 import { Brick } from "./brick";
+import { GameInterface } from "../interfaces/game";
 
 // Ball class
 export class Ball {
   private graphics: PIXI.Graphics;
   private speedX: number = 5;
   private speedY: number = -5;
+  private game: GameInterface;
 
-  constructor(private app: PIXI.Application) {
+  constructor(private app: PIXI.Application, game: GameInterface) {
+    this.game = game;
     this.graphics = new PIXI.Graphics();
     this.graphics.beginFill(0x800080);
     this.graphics.drawCircle(0, 0, 15);
@@ -39,7 +42,7 @@ export class Ball {
 
     // Reset game if ball reaches floor
     if (this.graphics.y + this.graphics.height >= this.app.screen.height) {
-      this.reset();
+      this.game.reset();
     }
   }
 
