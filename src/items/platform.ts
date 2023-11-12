@@ -13,19 +13,36 @@ export class Platform {
     this.graphics.y = app.screen.height - 40;
 
     app.stage.addChild(this.graphics);
+
+    // Add event listener
+    window.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   public moveLeft(): void {
     if (this.graphics.x > 0) {
-      this.graphics.x -= 10;
+      this.graphics.x -= 50;
     }
   }
 
   public moveRight(): void {
     if (this.graphics.x < this.app.screen.width - this.graphics.width) {
-      this.graphics.x += 10;
+      this.graphics.x += 50;
     }
   }
+
+  private handleKeyDown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case "ArrowLeft": {
+        this.moveLeft();
+        break;
+      }
+      case "ArrowRight": {
+        this.moveRight();
+        break;
+      }
+    }
+  }
+
   // Get the bounds of the platform to check touch
   public getBounds(): PIXI.Rectangle {
     return this.graphics.getBounds();
