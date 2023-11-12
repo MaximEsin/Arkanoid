@@ -1,11 +1,12 @@
 import * as PIXI from "pixi.js";
 import { Platform } from "./platform";
+import { Brick } from "./brick";
 
 // Ball class
 export class Ball {
   private graphics: PIXI.Graphics;
   private speedX: number = 5;
-  private speedY: number = 5;
+  private speedY: number = -5;
 
   constructor(private app: PIXI.Application) {
     this.graphics = new PIXI.Graphics();
@@ -48,7 +49,7 @@ export class Ball {
   }
 
   // Check if platform is touched
-  public checkTouch(platform: Platform): boolean {
+  public checkPlatformTouch(platform: Platform): boolean {
     const ballBounds = this.graphics.getBounds();
     const platformBounds = platform.getBounds();
     return (
@@ -58,11 +59,23 @@ export class Ball {
     );
   }
 
+  // Check brick touch
+  public checkBrickTouch(brick: Brick): boolean {
+    const ballBounds = this.graphics.getBounds();
+    const brickBounds = brick.getBounds();
+    return (
+      ballBounds.x + ballBounds.width >= brickBounds.x &&
+      ballBounds.x <= brickBounds.x + brickBounds.width &&
+      ballBounds.y + ballBounds.height >= brickBounds.y &&
+      ballBounds.y <= brickBounds.y + brickBounds.height
+    );
+  }
+
   // Reset ball
-  private reset(): void {
+  public reset(): void {
     this.graphics.x = this.app.screen.width / 2;
     this.graphics.y = this.app.screen.height - 60;
     this.speedX = 5;
-    this.speedY = 5;
+    this.speedY = -5;
   }
 }
