@@ -11,8 +11,9 @@ export class Game implements GameInterface {
   private ball: Ball;
   private bricks: Brick[] = [];
   private score: number = 0;
+  private playerName: string;
 
-  constructor() {
+  constructor(playerName: string) {
     // Create PIXI app
     this.app = new PIXI.Application({
       width: 800,
@@ -26,6 +27,7 @@ export class Game implements GameInterface {
     this.platform = new Platform(this.app);
     this.ball = new Ball(this.app, this);
     this.createBricks();
+    this.playerName = playerName;
 
     // Add update function to PIXI ticker
     this.app.ticker.add(this.update.bind(this));
@@ -95,5 +97,3 @@ export class Game implements GameInterface {
     this.createBricks();
   }
 }
-
-const game = new Game();
