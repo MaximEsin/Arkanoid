@@ -6,13 +6,20 @@ export class Brick {
 
   constructor(private app: PIXI.Application, x: number, y: number) {
     this.graphics = new PIXI.Graphics();
-    this.graphics.beginFill(0x00ff00);
+    this.setRandomColor();
     this.graphics.drawRect(0, 0, 80, 20); // Set the size of the brick
     this.graphics.endFill();
     this.graphics.x = x;
     this.graphics.y = y;
 
     app.stage.addChild(this.graphics);
+  }
+
+  // Set random color for the brick
+  private setRandomColor(): void {
+    const colors = [0xff0000, 0x0000ff, 0x00ff00];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    this.graphics.beginFill(randomColor);
   }
 
   // Get the bounds of the brick to check collision
