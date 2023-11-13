@@ -10,6 +10,7 @@ export class Game implements GameInterface {
   private platform: Platform;
   private ball: Ball;
   private bricks: Brick[] = [];
+  private score: number = 0;
 
   constructor() {
     // Create PIXI app
@@ -52,8 +53,10 @@ export class Game implements GameInterface {
     for (const brick of this.bricks) {
       if (this.ball.checkBrickTouch(brick)) {
         this.ball.bounce();
+        this.score += brick.getPointValue();
         brick.destroy();
         this.bricks = this.bricks.filter((b) => b !== brick);
+        this.printScore();
       }
     }
   }
@@ -77,6 +80,12 @@ export class Game implements GameInterface {
     this.platform.reset();
     this.ball.reset();
     this.resetBricks();
+    this.printScore();
+    this.score = 0;
+  }
+
+  private printScore(): void {
+    console.log("Score:", this.score);
   }
 
   // Reset bricks to initial position
