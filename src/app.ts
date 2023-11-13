@@ -136,10 +136,6 @@ export class Game implements GameInterface {
 
   // Start a new game with a new player name
   private startNewGame(): void {
-    const nameContainer = document.getElementById(
-      "nameContainer"
-    ) as HTMLElement;
-    nameContainer.classList.remove("hidden");
     this.playerName = "";
   }
 }
