@@ -42,7 +42,7 @@ export class Ball {
 
     // Reset game if ball reaches floor
     if (this.graphics.y + this.graphics.height >= this.app.screen.height) {
-      this.game.reset();
+      this.game.showOverlay();
     }
   }
 

@@ -96,4 +96,40 @@ export class Game implements GameInterface {
     this.bricks = [];
     this.createBricks();
   }
+
+  // Show overlay with player's name and score
+  public showOverlay(): void {
+    const overlay = document.getElementById("overlay") as HTMLElement;
+    const overlayName = document.getElementById("overlayName") as HTMLElement;
+    const overlayScore = document.getElementById("overlayScore") as HTMLElement;
+
+    overlayName.textContent = `Player: ${this.playerName}`;
+    overlayScore.textContent = `Score: ${this.score}`;
+
+    overlay.classList.remove("hidden");
+    overlay.classList.add("overlay");
+
+    this.app.ticker.stop();
+
+    // Continue button click event
+    const continueBtn = document.getElementById(
+      "continueBtn"
+    ) as HTMLButtonElement;
+    continueBtn.addEventListener("click", () => {
+      this.app.ticker.start();
+      overlay.classList.add("hidden");
+      overlay.classList.remove("overlay");
+      this.reset();
+      this.startNewGame();
+    });
+  }
+
+  // Start a new game with a new player name
+  private startNewGame(): void {
+    const nameContainer = document.getElementById(
+      "nameContainer"
+    ) as HTMLElement;
+    nameContainer.classList.remove("hidden");
+    this.playerName = "";
+  }
 }

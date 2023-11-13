@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const game = new Game(playerName);
         // Remove the name input container
         const nameContainer = document.querySelector(".container");
-        nameContainer?.parentNode?.removeChild(nameContainer);
+        nameContainer?.classList.add("hidden");
       } else {
         alert("Please enter your name before starting the game.");
       }
