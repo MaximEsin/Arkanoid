@@ -58,7 +58,6 @@ export class Game implements GameInterface {
         this.score += brick.getPointValue();
         brick.destroy();
         this.bricks = this.bricks.filter((b) => b !== brick);
-        this.printScore();
       }
     }
   }
@@ -68,6 +67,11 @@ export class Game implements GameInterface {
     this.ball.move();
     this.handleTouch();
     this.handleBrickTouch();
+
+    // Check if all bricks are destroyed, indicating the player has won
+    if (this.bricks.length === 0) {
+      this.showOverlay(true);
+    }
   }
 
   // Handle ball and platform touch
@@ -82,12 +86,12 @@ export class Game implements GameInterface {
     this.platform.reset();
     this.ball.reset();
     this.resetBricks();
-    this.printScore();
     this.score = 0;
-  }
 
-  private printScore(): void {
-    console.log("Score:", this.score);
+    // Hide the overlay
+    const overlay = document.getElementById("overlay") as HTMLElement;
+    overlay.classList.add("hidden");
+    overlay.classList.remove("overlay");
   }
 
   // Reset bricks to initial position
@@ -98,13 +102,19 @@ export class Game implements GameInterface {
   }
 
   // Show overlay with player's name and score
-  public showOverlay(): void {
+  public showOverlay(isWinner: boolean): void {
     const overlay = document.getElementById("overlay") as HTMLElement;
     const overlayName = document.getElementById("overlayName") as HTMLElement;
     const overlayScore = document.getElementById("overlayScore") as HTMLElement;
+    const overlayMessage = document.getElementById(
+      "overlayMessage"
+    ) as HTMLElement;
 
     overlayName.textContent = `Player: ${this.playerName}`;
     overlayScore.textContent = `Score: ${this.score}`;
+    overlayMessage.textContent = isWinner
+      ? "Congratulations! You won!"
+      : "Game over! You lost.";
 
     overlay.classList.remove("hidden");
     overlay.classList.add("overlay");

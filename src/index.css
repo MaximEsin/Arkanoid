@@ -37,6 +37,7 @@
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 10px;
 }
 
 .btn:hover {
@@ -59,4 +60,9 @@
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.overlayText {
+  margin: 10px 0 10px;
+  font-size: 20px;
 }

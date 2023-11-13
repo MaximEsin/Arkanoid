@@ -1,4 +1,4 @@
 export interface GameInterface {
   reset(): void;
-  showOverlay(): void;
+  showOverlay(isWinner: boolean): void;
 }
