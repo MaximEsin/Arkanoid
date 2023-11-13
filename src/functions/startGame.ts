@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (playerName.trim() !== "") {
         // Create a new instance of the game with the player's name
         const game = new Game(playerName);
+
         // Remove the name input container
         const nameContainer = document.querySelector(".container");
         nameContainer?.classList.add("hidden");
