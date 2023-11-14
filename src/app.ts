@@ -136,6 +136,10 @@ export class Game implements GameInterface {
 
   // Start a new game with a new player name
   private startNewGame(): void {
-    this.playerName = "";
+    const newName = window.prompt("Enter your new name:");
+    if (newName !== null) {
+      this.playerName = newName;
+      this.reset();
+    }
   }
 }
