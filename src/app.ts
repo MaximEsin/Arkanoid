@@ -125,13 +125,15 @@ export class Game implements GameInterface {
     const continueBtn = document.getElementById(
       "continueBtn"
     ) as HTMLButtonElement;
-    continueBtn.addEventListener("click", () => {
-      this.app.ticker.start();
+
+    const continueBtnClickHandler = () => {
       overlay.classList.add("hidden");
       overlay.classList.remove("overlay");
       this.reset();
       this.startNewGame();
-    });
+      continueBtn.removeEventListener("click", continueBtnClickHandler);
+    };
+    continueBtn.addEventListener("click", continueBtnClickHandler);
   }
 
   // Start a new game with a new player name
@@ -140,6 +142,7 @@ export class Game implements GameInterface {
     if (newName !== null) {
       this.playerName = newName;
       this.reset();
+      this.app.ticker.start();
     }
   }
 }
