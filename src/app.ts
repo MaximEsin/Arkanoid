@@ -118,6 +118,7 @@ export class Game implements GameInterface {
 
     overlay.classList.remove("hidden");
     overlay.classList.add("overlay");
+    this.updateLeaderboard();
 
     this.app.ticker.stop();
 
@@ -144,5 +145,28 @@ export class Game implements GameInterface {
       this.reset();
       this.app.ticker.start();
     }
+  }
+
+  // Store players' score
+  private updateLeaderboard(): void {
+    const scores: Record<string, number> = JSON.parse(
+      localStorage.getItem("leaderboard") || "{}"
+    );
+    scores[this.playerName] = this.score;
+    localStorage.setItem("leaderboard", JSON.stringify(scores));
+
+    // Get the top 5 scores
+    const topScores = Object.entries(scores)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    // Display the leaderboard
+    const leaderboard = document.getElementById("leaderboard") as HTMLElement;
+    leaderboard.innerHTML = "<h3>Leaderboard</h3>";
+    topScores.forEach(([name, score], index) => {
+      const entry = document.createElement("p");
+      entry.textContent = `${index + 1}. ${name}: Score ${score}`;
+      leaderboard.appendChild(entry);
+    });
   }
 }
