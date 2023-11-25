@@ -1,17 +1,18 @@
 import { GameLogic } from "./logic/gameLogic";
+import { InterfaceManager } from "./logic/interfaceManager";
 
 document.addEventListener("DOMContentLoaded", () => {
   const startGameBtn = document.getElementById("startGameBtn");
   if (startGameBtn) {
-    startGameBtn.addEventListener("click", () => {
-      const playerNameInput = document.getElementById(
-        "playerName"
-      ) as HTMLInputElement;
-      const playerName = playerNameInput.value;
+    const interfaceManager = new InterfaceManager();
+    let playerName: string | null = null;
 
-      if (playerName.trim() !== "") {
+    // Subscribe to the start game event
+    interfaceManager.onStartGame((name: string) => {
+      playerName = name;
+      if (name.trim() !== "") {
         // Create a new instance of the game with the player's name
-        const game = new GameLogic(playerName);
+        const game = new GameLogic(name);
         game.initializeGame();
 
         // Remove the name input container
@@ -20,6 +21,28 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("Please enter your name before starting the game.");
       }
+    });
+
+    // Subscribe to the continue event
+    interfaceManager.onContinue(() => {
+      if (playerName !== null) {
+        // Reset the game
+        const game = new GameLogic(playerName);
+        game.reset();
+
+        // Start a new game with the same player name
+        game.initializeGame();
+      }
+    });
+
+    startGameBtn.addEventListener("click", () => {
+      const playerNameInput = document.getElementById(
+        "playerName"
+      ) as HTMLInputElement;
+      const playerName = playerNameInput.value;
+
+      // Trigger the start game event
+      interfaceManager.startGame(playerName);
     });
   }
 });
