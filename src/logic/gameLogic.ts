@@ -48,7 +48,7 @@ export class GameLogic implements GameInterface {
       if (!continueBtnClicked) {
         continueBtnClicked = true;
         this.reset();
-        startNewGame();
+
         continueBtn.removeEventListener("click", continueBtnClickHandler); // Remove the event listener
       }
     };
