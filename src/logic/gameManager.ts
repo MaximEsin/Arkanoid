@@ -1,14 +1,14 @@
-// Game controller
-import { GameLogic } from "./gameLogic";
-import { InterfaceManager } from "./interfaceManager";
+// GameManager.ts
+import { GameInterface } from "../interfaces/game";
+import { ManagerInterface } from "../interfaces/manager";
 
-export class GameController {
-  private gameLogic: GameLogic;
-  private interfaceManager: InterfaceManager;
+export class GameManager {
+  private gameLogic: GameInterface;
+  private interfaceManager: ManagerInterface;
 
-  constructor() {
-    this.gameLogic = new GameLogic("");
-    this.interfaceManager = new InterfaceManager();
+  constructor(gameLogic: GameInterface, interfaceManager: ManagerInterface) {
+    this.gameLogic = gameLogic;
+    this.interfaceManager = interfaceManager;
 
     // Subscribe to events from InterfaceManager
     this.interfaceManager.onStartGame((name: string) => {
@@ -21,10 +21,7 @@ export class GameController {
   }
 
   public startGame(playerName: string): void {
-    // Pass the player name to the game logic
     this.gameLogic.setPlayerName(playerName);
-
-    // Initialize the game
     this.gameLogic.initializeGame();
 
     // Hide the name input container
@@ -33,7 +30,6 @@ export class GameController {
   }
 
   public continueGame(): void {
-    // Reset the game and start a new game with the same player name
     this.gameLogic.reset();
     this.gameLogic.initializeGame();
   }
