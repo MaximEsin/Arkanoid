@@ -191,4 +191,8 @@ export class GameLogic implements GameInterface {
       leaderboard.appendChild(entry);
     });
   }
+
+  public setPlayerName(playerName: string): void {
+    this.playerName = playerName;
+  }
 }
