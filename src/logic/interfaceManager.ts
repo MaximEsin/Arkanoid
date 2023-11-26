@@ -1,5 +1,7 @@
+import { ManagerInterface } from "../interfaces/manager";
+
 // InterfaceManager.ts
-export class InterfaceManager {
+export class InterfaceManager implements ManagerInterface {
   private startGameCallback: (playerName: string) => void;
   private continueCallback: () => void;
 

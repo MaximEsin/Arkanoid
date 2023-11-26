@@ -18,8 +18,6 @@ export class GameController {
     this.interfaceManager.onContinue(() => {
       this.continueGame();
     });
-
-    // Additional initialization if needed
   }
 
   public startGame(playerName: string): void {
@@ -28,8 +26,6 @@ export class GameController {
 
     // Initialize the game
     this.gameLogic.initializeGame();
-
-    // Additional actions if needed
 
     // Hide the name input container
     const nameContainer = document.querySelector(".container");
