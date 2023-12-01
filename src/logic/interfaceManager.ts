@@ -1,13 +1,35 @@
+import * as PIXI from "pixi.js";
 import { ManagerInterface } from "../interfaces/manager";
+import { GameLogic } from "./gameLogic";
 
 // InterfaceManager.ts
 export class InterfaceManager implements ManagerInterface {
   private startGameCallback: (playerName: string) => void;
   private continueCallback: () => void;
+  private gameLogic: GameLogic;
 
-  constructor() {
+  constructor(gameLogic: GameLogic) {
     this.startGameCallback = () => {};
     this.continueCallback = () => {};
+    this.gameLogic = gameLogic;
+  }
+
+  // Method to init
+  public init(): void {
+    const continueBtn = document.getElementById(
+      "continueBtn"
+    ) as HTMLButtonElement;
+
+    let continueBtnClicked = false;
+
+    const continueBtnClickHandler = () => {
+      if (!continueBtnClicked) {
+        continueBtnClicked = true;
+        this.gameLogic.reset();
+        continueBtn.removeEventListener("click", continueBtnClickHandler); // Remove the event listener
+      }
+    };
+    continueBtn.addEventListener("click", continueBtnClickHandler);
   }
 
   // Method to subscribe to the start game event

@@ -34,29 +34,6 @@ export class GameLogic implements GameInterface {
 
     // Add update function to PIXI ticker
     this.app.ticker.add(() => this.update());
-
-    const playerName = this.playerName;
-    const startNewGame = () => this.startNewGame();
-
-    // TODO: в классе который реализует логику игры не должно быть логики по 
-    // управлению элементами пользовательского интерфейса, эта логика должна быть в классе
-    // InterfaceManager, а взаимодействие игры и интерфейса должно полностью реализовано в GameManager.
-    // Ниже в участки кода которые взаимодейсвую с DOM должны перемещены в InterfaceManager.
-    const continueBtn = document.getElementById(
-      "continueBtn"
-    ) as HTMLButtonElement;
-
-    let continueBtnClicked = false;
-
-    const continueBtnClickHandler = () => {
-      if (!continueBtnClicked) {
-        continueBtnClicked = true;
-        this.reset();
-
-        continueBtn.removeEventListener("click", continueBtnClickHandler); // Remove the event listener
-      }
-    };
-    continueBtn.addEventListener("click", continueBtnClickHandler);
   }
 
   // Create bricks
