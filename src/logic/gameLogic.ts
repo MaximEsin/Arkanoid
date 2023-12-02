@@ -3,6 +3,7 @@ import { Platform } from "../items/platform";
 import { Ball } from "../items/ball";
 import { Brick } from "../items/brick";
 import { GameInterface } from "../interfaces/game";
+import { InterfaceManager } from "./interfaceManager";
 
 // Game logic
 export class GameLogic implements GameInterface {
@@ -12,9 +13,11 @@ export class GameLogic implements GameInterface {
   private bricks: Brick[] = [];
   private score: number = 0;
   private playerName: string;
+  private interfaceManager: InterfaceManager;
 
-  constructor(playerName: string) {
+  constructor(playerName: string, interfaceManager: InterfaceManager) {
     this.playerName = playerName;
+    this.interfaceManager = interfaceManager;
   }
 
   public initializeGame(): void {
@@ -106,71 +109,18 @@ export class GameLogic implements GameInterface {
 
   // Show overlay with player's name and score
   public showOverlay(isWinner: boolean): void {
-    const overlay = document.getElementById("overlay") as HTMLElement;
-    const overlayName = document.getElementById("overlayName") as HTMLElement;
-    const overlayScore = document.getElementById("overlayScore") as HTMLElement;
-    const overlayMessage = document.getElementById(
-      "overlayMessage"
-    ) as HTMLElement;
-
-    overlayName.textContent = `Player: ${this.playerName}`;
-    overlayScore.textContent = `Score: ${this.score}`;
-    overlayMessage.textContent = isWinner
-      ? "Congratulations! You won!"
-      : "Game over! You lost.";
-
-    overlay.classList.remove("hidden");
-    overlay.classList.add("overlay");
-    this.updateLeaderboard();
-
+    this.interfaceManager.showOverlay(isWinner, this.playerName, this.score);
     this.app.ticker.stop();
-
-    // Continue button click event
-    const continueBtn = document.getElementById(
-      "continueBtn"
-    ) as HTMLButtonElement;
-
-    const continueBtnClickHandler = () => {
-      overlay.classList.add("hidden");
-      overlay.classList.remove("overlay");
-      this.reset();
-      this.startNewGame();
-      continueBtn.removeEventListener("click", continueBtnClickHandler);
-    };
-    continueBtn.addEventListener("click", continueBtnClickHandler);
   }
 
   // Start a new game with a new player name
-  private startNewGame(): void {
+  public startNewGame(): void {
     const newName = window.prompt("Enter your new name:");
     if (newName !== null) {
       this.playerName = newName;
       this.reset();
       this.app.ticker.start();
     }
-  }
-
-  // Store players' score
-  private updateLeaderboard(): void {
-    const scores: Record<string, number> = JSON.parse(
-      localStorage.getItem("leaderboard") || "{}"
-    );
-    scores[this.playerName] = this.score;
-    localStorage.setItem("leaderboard", JSON.stringify(scores));
-
-    // Get the top 5 scores
-    const topScores = Object.entries(scores)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-
-    // Display the leaderboard
-    const leaderboard = document.getElementById("leaderboard") as HTMLElement;
-    leaderboard.innerHTML = "<h3>Leaderboard</h3>";
-    topScores.forEach(([name, score], index) => {
-      const entry = document.createElement("p");
-      entry.textContent = `${index + 1}. ${name}: Score ${score}`;
-      leaderboard.appendChild(entry);
-    });
   }
 
   public setPlayerName(playerName: string): void {

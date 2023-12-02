@@ -30,7 +30,6 @@ export class GameManager {
   }
 
   public continueGame(): void {
-    this.gameLogic.reset();
-    this.gameLogic.initializeGame();
+    this.gameLogic.startNewGame();
   }
 }

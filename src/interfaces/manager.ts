@@ -3,4 +3,5 @@ export interface ManagerInterface {
   onContinue(callback: () => void): void;
   startGame(playerName: string): void;
   continue(): void;
+  handleContinueButtonClick(): void;
 }

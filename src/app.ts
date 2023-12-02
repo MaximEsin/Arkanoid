@@ -4,9 +4,10 @@ import { InterfaceManager } from "./logic/interfaceManager";
 
 document.addEventListener("DOMContentLoaded", () => {
   const startGameBtn = document.getElementById("startGameBtn");
+  const continueBtn = document.getElementById("continueBtn");
   if (startGameBtn) {
-    const gameLogic = new GameLogic("");
     const interfaceManager = new InterfaceManager();
+    const gameLogic = new GameLogic("", interfaceManager);
     const gameManager = new GameManager(gameLogic, interfaceManager);
 
     startGameBtn.addEventListener("click", () => {
@@ -17,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Trigger the start game event through GameManager
       gameManager.startGame(playerName);
+    });
+
+    continueBtn!.addEventListener("click", () => {
+      interfaceManager.handleContinueButtonClick();
     });
   }
 });

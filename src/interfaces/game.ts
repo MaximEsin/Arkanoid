@@ -3,4 +3,5 @@ export interface GameInterface {
   reset(): void;
   showOverlay(isWinner: boolean): void;
   setPlayerName(playerName: string): void;
+  startNewGame(): void;
 }
