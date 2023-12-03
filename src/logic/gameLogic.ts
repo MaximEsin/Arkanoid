@@ -94,10 +94,7 @@ export class GameLogic implements GameInterface {
     this.resetBricks();
     this.score = 0;
 
-    // Hide the overlay
-    const overlay = document.getElementById("overlay") as HTMLElement;
-    overlay.classList.add("hidden");
-    overlay.classList.remove("overlay");
+    this.interfaceManager.hideOverlay();
   }
 
   // Reset bricks to initial position

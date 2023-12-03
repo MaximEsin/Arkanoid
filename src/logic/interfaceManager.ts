@@ -84,4 +84,11 @@ export class InterfaceManager implements ManagerInterface {
       leaderboard.appendChild(entry);
     });
   }
+
+  // Hide the overlay
+  public hideOverlay(): void {
+    const overlay = document.getElementById("overlay") as HTMLElement;
+    overlay.classList.add("hidden");
+    overlay.classList.remove("overlay");
+  }
 }
