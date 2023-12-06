@@ -2,38 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Arkanoid game" />
-    <meta name="keywords" content="HTML5, CSS, Arkanoid, JavaScript" />
-    <meta name="author" content="Maxim Esin" />
-    <link rel="stylesheet" href="./index.css" />
-    <title>Arkanoid</title>
+    <link rel="stylesheet" href="./src/index.css" />
+    <title>Pixi</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.10/pixi.min.js"></script>
   </head>
-  <body>
-    <div class="Tab Tab__closed" id="loose__Tab">
-      <p class="Tab__text">Game over. You loose</p>
-      <p id="looser__score" class="Tab__text"></p>
-      <div class="leaderboard">
-        <p class="leaderboard__text">Leaderboard</p>
-        <ol class="leaderboard__list"></ol>
-      </div>
-      <button onclick="restart()" class="Tab__btn">Start again</button>
+  <body class="body">
+    <div class="hidden" id="overlay">
+      <p id="overlayMessage" class="overlayText"></p>
+      <p id="overlayName" class="overlayText"></p>
+      <p id="overlayScore" class="overlayText"></p>
+      <div id="leaderboard"></div>
+      <button class="btn" id="continueBtn">Continue</button>
     </div>
-    <div class="Tab Tab__closed" id="win__Tab">
-      <p class="Tab__text">Game over. You win</p>
-      <p id="winner__score" class="Tab__text"></p>
-      <div class="leaderboard">
-        <p class="leaderboard__text">Leaderboard</p>
-        <ol class="leaderboard__list"></ol>
-      </div>
-      <button onclick="restart()" class="Tab__btn">Start again</button>
+    <div class="container" id="nameContainer">
+      <input type="text" id="playerName" placeholder="Enter your name" />
+      <button class="btn" id="startGameBtn">Start game</button>
     </div>
-    <div class="player__Name__Container">
-      <input type="text" id="player__Name" placeholder="Enter your name" />
-      <button class="player__Name__Btn" onclick="startGame()">Confirm</button>
-    </div>
-    <canvas id="canvas"></canvas>
-    <p id="score">Score: 0</p>
-    <script src="./index.js"></script>
+    <script type="module" src="./src/app.ts"></script>
+    <script type="module" src="./src/functions/startGame.ts"></script>
   </body>
 </html>
